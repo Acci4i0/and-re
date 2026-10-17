@@ -404,3 +404,60 @@ img { max-width: 100%; height: auto; display: block; vertical-align: middle; }
   background-size: calc(var(--fig-sprite-w) * 14) calc(var(--fig-sprite-h) * 13);
   background-position: calc(var(--fig-sprite-w) * -4) calc(var(--fig-sprite-h) * -11);
 }
+
+/* ===== cartella nera: navigazione fra le opere =====
+   Aggiunta alla pagina master, che prima mostrava una sola immagine.
+   Vive qui e non in un foglio a parte perche' usa la stessa tipografia e gli
+   stessi colori della pagina (fondo nero, testo bianco) gia' definiti sopra. */
+
+/* Didascalia a sinistra, frecce a destra, sulla stessa riga dell'originale.
+   max-width uguale a .nt-plate cosi' la riga non sborda oltre l'immagine. */
+.opera-barra {
+  margin-top: .5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  width: max-content;
+  max-width: 100%;
+}
+
+/* La didascalia tiene la sua misura anche quando e' vuota, cosi' le frecce
+   non ballano passando da un'opera con titolo lungo a una senza. */
+.opera-barra .nt-caption { margin-top: 0; }
+
+.opera-frecce {
+  margin-left: auto;
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  flex: none;
+}
+
+/* Piccole, come il resto dei comandi secondari del sito: stessa scala di
+   .nt-date e .nt-caption. Nessun bordo: sono due frecce, non due bottoni. */
+.opera-freccia {
+  font-family: inherit;
+  font-size: .625rem;
+  line-height: 1rem;
+  color: rgba(255, 255, 255, .5);
+  background: transparent;
+  border: 0;
+  padding: .15rem .25rem;
+  cursor: pointer;
+}
+
+.opera-freccia:hover { color: #fff; }
+
+.opera-freccia:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, .6);
+  outline-offset: 1px;
+}
+
+.opera-conta {
+  font-size: .625rem;
+  line-height: 1rem;
+  color: rgba(255, 255, 255, .5);
+}
+
+/* Il video dell'opera in movimento sta nella stessa lastra delle immagini. */
+video.nt-photo--master { height: auto; }

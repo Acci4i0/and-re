@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="page">
+<html lang="it" class="page">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,17 +18,56 @@
     <span class="nt-date">luglio 15 2026</span>
   </div>
 
-  <!-- contenuto: prose mx-6 pb-6 max-w-[900px] — immagine con didascalia -->
+  <!-- contenuto: prose mx-6 pb-6 max-w-[900px]
+
+       Le opere stanno TUTTE nel documento e si alternano con [hidden], come
+       gia' fa il tasto lingua di asterione: senza JS resta visibile la prima,
+       che e' il Rothko, cioe' esattamente la pagina di prima. -->
   <div class="prose nt-content nt-content--master">
-    <figure class="nt-plate">
-      <!-- width/height = dimensioni intrinseche (534x800): il browser riserva lo spazio
-           con l'aspect ratio esatto, la larghezza a video la decide .nt-photo--master -->
-      <img class="nt-photo nt-photo--master" width="534" height="800"
-           src="assets/rothko-no10-1948.jpg"
-           alt="No. 10, dipinto di Mark Rothko del 1948: campi scuri e gialli su fondo rosa pallido">
-      <figcaption class="nt-caption">No. 10 Mark Rothko 1948</figcaption>
-    </figure>
+
+      <figure class="nt-plate opera" data-opera="rothko-no10-1948">
+        <img class="nt-photo nt-photo--master" width="534" height="800"
+             src="assets/rothko-no10-1948.jpg" alt="No. 10, dipinto di Mark Rothko del 1948: campi scuri e gialli su fondo rosa pallido">
+      </figure>
+      <figure class="nt-plate opera" data-opera="figura-cappello-giallo" hidden>
+        <img class="nt-photo nt-photo--master" width="1050" height="1400"
+             src="assets/opere/figura-cappello-giallo.jpg" alt="Dipinto: figura in camicia blu e cappello giallo su fondo rosa, la tela appoggiata in una calle" loading="lazy">
+      </figure>
+      <figure class="nt-plate opera" data-opera="calze-bianche" hidden>
+        <img class="nt-photo nt-photo--master" width="1080" height="1339"
+             src="assets/opere/calze-bianche.jpg" alt="Dipinto: gambe con calze bianche su un tappeto bordeaux, una sedia blu sullo sfondo" loading="lazy">
+      </figure>
+      <figure class="nt-plate opera" data-opera="lettrice" hidden>
+        <img class="nt-photo nt-photo--master" width="1170" height="1225"
+             src="assets/opere/lettrice.jpg" alt="Dipinto incorniciato: figura che legge un libro davanti a una tazza" loading="lazy">
+      </figure>
+      <figure class="nt-plate opera" data-opera="prato-verde" hidden>
+        <video class="nt-photo nt-photo--master" width="960" height="540"
+             src="assets/opere/prato-verde.mp4" poster="assets/opere/prato-verde.jpg"
+             autoplay muted loop playsinline preload="none"
+             aria-label="Ripresa in movimento su un dipinto: figura distesa su un prato verde"></video>
+      </figure>
+
+      <!-- Didascalia e frecce sulla stessa riga: la didascalia tiene il posto
+           a sinistra, le frecce stanno a destra. Cambiando opera cambia anche
+           questa, perche' e' lo stesso meccanismo [hidden] delle lastre. -->
+      <div class="opera-barra">
+        <span class="nt-caption opera-didascalia" data-opera="rothko-no10-1948">No. 10 Mark Rothko 1948</span>
+        <span class="nt-caption opera-didascalia" data-opera="figura-cappello-giallo" hidden>&mdash;</span>
+        <span class="nt-caption opera-didascalia" data-opera="calze-bianche" hidden>&mdash;</span>
+        <span class="nt-caption opera-didascalia" data-opera="lettrice" hidden>&mdash;</span>
+        <span class="nt-caption opera-didascalia" data-opera="prato-verde" hidden>&mdash;</span>
+        <div class="opera-frecce">
+          <button type="button" class="opera-freccia" id="opera-prec"
+                  aria-label="Opera precedente">&#8592;</button>
+          <span class="opera-conta"><span id="opera-indice">1</span>/5</span>
+          <button type="button" class="opera-freccia" id="opera-succ"
+                  aria-label="Opera successiva">&#8594;</button>
+        </div>
+      </div>
+
   </div>
 
+  <script src="opere.js"></script>
 </body>
 </html>
