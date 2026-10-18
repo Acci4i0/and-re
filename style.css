@@ -462,3 +462,35 @@ img { max-width: 100%; height: auto; display: block; vertical-align: middle; }
 /* Il video dell'opera in movimento sta nella stessa lastra delle immagini. */
 video.nt-photo--master { height: auto; }
 
+/* ===== velo di apertura della cartella info =====
+   Il foglio su cui si scrive INFO prima che parta il cruciverba. Bianco come
+   la home: il disegno arriva sulla stessa pagina, non su un fondo diverso.
+   L'inchiostro resta quello del disegno originale. */
+
+.info-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px));
+  cursor: wait;
+}
+
+/* Il canvas tiene il rapporto del disegno originale e si stringe sulla
+   finestra: la geometria dei puntini e' in coordinate 960x380 e viene scalata,
+   non ricalcolata. */
+.info-overlay-canvas {
+  width: min(1100px, 92vw);
+  aspect-ratio: 960 / 380;
+  display: block;
+}
+
+/* Il lampo che copre il cambio pagina: la carta sbianca di colpo e sotto, nel
+   frattempo, il cruciverba e' gia' stato scaricato. */
+.info-overlay--lampo {
+  background: #fff;
+  transition: background-color 160ms linear;
+}
+.info-overlay--lampo .info-overlay-canvas { opacity: 0; transition: opacity 120ms linear; }

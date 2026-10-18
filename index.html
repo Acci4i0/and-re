@@ -217,7 +217,7 @@
 
       <!-- index 5 — x .8 y .32, icona gialla, label "info" (aggiunta, non presente
            nell'originale). Vive nel suo repo (Acci4i0/CRSW_Andre), come la cartella foto. -->
-      <a draggable="false" data-drag="true" data-index="5" class="folder-item"
+      <a draggable="false" data-drag="true" data-index="5" class="folder-item" id="info-folder"
          style="top:32%;left:80%;-webkit-touch-callout:none" href="https://acci4i0.github.io/CRSW_Andre/">
         <img draggable="false" src="assets/folder-default.png" width="64" height="64" class="pixelated">
         <span class="folder-label">info</span>
@@ -245,6 +245,14 @@
     </div>
   </div>
 
+  <!-- Velo di apertura della cartella info: ci si scrive INFO unendo i
+       puntini, poi parte il cruciverba. Nasce nascosto e senza JavaScript
+       resta tale: in quel caso la cartella e' un link normale. -->
+  <div class="info-overlay" id="info-overlay" hidden aria-hidden="true">
+    <canvas class="info-overlay-canvas" id="info-canvas"
+            role="img" aria-label="Unisci i puntini: una sola linea a matita scrive INFO"></canvas>
+  </div>
+
   <!-- modal (Headless UI Dialog replica): nessuna animazione, block/hidden -->
   <div class="hidden" id="modal-root">
     <div class="modal-overlay" aria-hidden="true"></div>
@@ -256,5 +264,6 @@
   </div>
 
   <script src="main.js"></script>
+  <script src="info-overlay.js"></script>
 </body>
 </html>
