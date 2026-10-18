@@ -462,12 +462,12 @@ img { max-width: 100%; height: auto; display: block; vertical-align: middle; }
 /* Il video dell'opera in movimento sta nella stessa lastra delle immagini. */
 video.nt-photo--master { height: auto; }
 
-/* ===== velo di apertura della cartella info =====
+/* ===== velo di apertura delle cartelle info e foto =====
    Il foglio su cui si scrive INFO prima che parta il cruciverba. Bianco come
    la home: il disegno arriva sulla stessa pagina, non su un fondo diverso.
    L'inchiostro resta quello del disegno originale. */
 
-.info-overlay {
+.apertura {
   position: fixed;
   inset: 0;
   z-index: 1300;
@@ -482,12 +482,12 @@ video.nt-photo--master { height: auto; }
    d'autore e batte il display:none che il browser applica a [hidden]. Senza
    questa riga il velo resta aperto dal primo istante e copre tutta la home di
    bianco — la scrivania c'e', ma sotto. */
-.info-overlay[hidden] { display: none; }
+.apertura[hidden] { display: none; }
 
 /* Il canvas tiene il rapporto del disegno originale e si stringe sulla
    finestra: la geometria dei puntini e' in coordinate 960x380 e viene scalata,
    non ricalcolata. */
-.info-overlay-canvas {
+.apertura-canvas {
   width: min(1100px, 92vw);
   aspect-ratio: 960 / 380;
   display: block;
@@ -495,8 +495,8 @@ video.nt-photo--master { height: auto; }
 
 /* Il lampo che copre il cambio pagina: la carta sbianca di colpo e sotto, nel
    frattempo, il cruciverba e' gia' stato scaricato. */
-.info-overlay--lampo {
+.apertura--lampo {
   background: #fff;
   transition: background-color 160ms linear;
 }
-.info-overlay--lampo .info-overlay-canvas { opacity: 0; transition: opacity 120ms linear; }
+.apertura--lampo .apertura-canvas { opacity: 0; transition: opacity 120ms linear; }

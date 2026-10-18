@@ -228,7 +228,7 @@
            sorgente non finisce online. Le foto sono state ridotte a 1600px
            di lato lungo: 25 MB -> 8, senza differenza visibile dentro una
            nuvola 3D. -->
-      <a draggable="false" data-drag="true" data-index="2" class="folder-item"
+      <a draggable="false" data-drag="true" data-index="2" class="folder-item" id="foto-folder"
          style="top:48%;left:18%;-webkit-touch-callout:none" href="foto/">
         <img draggable="false" src="assets/folder-default.png" width="64" height="64" class="pixelated">
         <span class="folder-label">foto</span>
@@ -274,12 +274,13 @@
     </div>
   </div>
 
-  <!-- Velo di apertura della cartella info: ci si scrive INFO unendo i
-       puntini, poi parte il cruciverba. Nasce nascosto e senza JavaScript
-       resta tale: in quel caso la cartella e' un link normale. -->
-  <div class="info-overlay" id="info-overlay" hidden aria-hidden="true">
-    <canvas class="info-overlay-canvas" id="info-canvas"
-            role="img" aria-label="Unisci i puntini: una sola linea a matita scrive INFO"></canvas>
+  <!-- Velo di apertura delle cartelle info e foto: ci si scrive la parola
+       unendo i puntini, poi si apre la pagina. Uno solo per entrambe: non
+       possono essere aperte insieme. Nasce nascosto e senza JavaScript resta
+       tale, nel qual caso le cartelle sono link normali. -->
+  <div class="apertura" id="apertura" hidden aria-hidden="true">
+    <canvas class="apertura-canvas" id="apertura-canvas"
+            role="img" aria-label="Unisci i puntini: una sola linea a matita scrive la parola"></canvas>
   </div>
 
   <!-- modal (Headless UI Dialog replica): nessuna animazione, block/hidden -->
@@ -293,6 +294,6 @@
   </div>
 
   <script src="main.js"></script>
-  <script src="info-overlay.js"></script>
+  <script src="apertura-cartella.js"></script>
 </body>
 </html>
