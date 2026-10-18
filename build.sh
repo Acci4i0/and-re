@@ -31,6 +31,7 @@ rsync -a \
   --exclude 'node_modules/' \
   --exclude '_analysis/' \
   --exclude 'build.sh' \
+  --exclude 'tools/' \
   --exclude '*.md' \
   --exclude 'LICENSE' \
   --exclude 'content:nuthoughts.rtf' \
@@ -38,6 +39,9 @@ rsync -a \
 
 mkdir -p _site/foto
 cp -R foto-src/dist/. _site/foto/
+
+echo "--- versiono CSS e JS contro la cache ---"
+node tools/cache-bust.mjs
 
 echo "--- pubblicato ---"
 du -sh _site
