@@ -1,17 +1,14 @@
 #!/usr/bin/env bash
 # Monta il sito pubblicabile in _site/.
 #
-# Esiste perche' and-re.com NON e' servito da GitHub Pages: il dominio punta a
-# Cloudflare Pages, che prende il repo e lo pubblica senza eseguire il workflow
-# di GitHub. Finche' il montaggio viveva solo dentro il workflow, Cloudflare
-# serviva la radice del repo — con dentro il sorgente della galleria e senza la
-# galleria costruita.
+# Il sito ha UN SOLO pubblicatore: GitHub Actions, che chiama questo script e
+# carica _site. Prima ce n'erano due — c'era anche un Worker Cloudflare che
+# pubblicava la radice del repo — e divergevano in silenzio: online finiva il
+# sorgente della galleria e mancava /foto/, mentre la copia su GitHub Pages era
+# corretta ma non la visitava nessuno.
 #
-# Ora i due pubblicatori chiamano lo stesso script:
-#   GitHub Actions  -> bash build.sh, poi carica _site
-#   Cloudflare Pages-> comando di build "bash build.sh", cartella di output "_site"
-#
-# Cosi' non possono piu' divergere.
+# Tutto cio' che decide cosa viene pubblicato sta qui dentro e nel workflow,
+# cioe' nel repo. Niente campi nascosti in un pannello di controllo.
 
 set -euo pipefail
 
@@ -34,7 +31,6 @@ rsync -a \
   --exclude 'node_modules/' \
   --exclude '_analysis/' \
   --exclude 'build.sh' \
-  --exclude 'wrangler.toml' \
   --exclude '*.md' \
   --exclude 'LICENSE' \
   --exclude 'content:nuthoughts.rtf' \
