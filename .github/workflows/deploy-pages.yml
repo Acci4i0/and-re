@@ -24,9 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # La galleria e' una app Vite e va costruita. Il suo sorgente vive in
-      # foto-src/ e NON va pubblicato: quello che finisce online e' solo la
-      # dist, montata sotto /foto/.
+      # La galleria e' una app Vite e va costruita. Il montaggio sta in
+      # build.sh, non qui: lo stesso script lo usa anche Cloudflare Pages, che
+      # e' cio' che serve davvero and-re.com. Duplicarlo li farebbe divergere.
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -34,30 +34,8 @@ jobs:
           cache: npm
           cache-dependency-path: foto-src/package-lock.json
 
-      - name: Build the photo gallery
-        working-directory: foto-src
-        run: |
-          npm ci
-          npm run build
-
-      # Si monta una cartella a parte invece di pubblicare la radice del repo:
-      # cosi' sorgente della galleria, node_modules e roba di servizio restano
-      # fuori dal sito senza doverli elencare uno per uno in fase di upload.
-      - name: Assemble the site
-        run: |
-          mkdir -p _site
-          rsync -a \
-            --exclude '_site/' \
-            --exclude 'foto-src/' \
-            --exclude '.git/' \
-            --exclude '.github/' \
-            --exclude 'node_modules/' \
-            ./ _site/
-          mkdir -p _site/foto
-          cp -R foto-src/dist/. _site/foto/
-          echo "--- cosa viene pubblicato ---"
-          du -sh _site
-          ls _site
+      - name: Build the site
+        run: bash build.sh
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
