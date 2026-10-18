@@ -94,6 +94,13 @@
       .intro-year { text-align: right; }
     }
 
+    /* Tornando indietro col browser la pagina viene riaperta da capo e il
+       cover ripartirebbe. Qui sparisce del tutto: l'intro e' un saluto
+       all'arrivo, non qualcosa da rivedere a ogni ritorno. La classe la mette
+       lo script qui sotto, mentre si legge l'head, quindi prima che il body
+       venga disegnato: senza quell'anticipo si vedrebbe un lampo azzurro. */
+    .intro-skip .intro { display: none; }
+
     /* Stato finale: invisibile e senza layer di composizione residuo. */
     .intro--retired { visibility: hidden; will-change: auto; }
 
@@ -109,6 +116,31 @@
       'use strict';
 
       const RETIRED_CLASS = 'intro--retired';
+      const SKIP_CLASS = 'intro-skip';
+
+      skipCoverOnBackForward();
+
+      /* Il tipo di navigazione lo dice il browser:
+           'reload'       -> ricaricata a mano, l'intro va rifatta
+           'back_forward' -> si torna da asterione o master, niente intro
+           'navigate'     -> primo arrivo, l'intro va fatta
+         Quando la pagina viene ripescata dalla bfcache non viene nemmeno
+         rieseguita e il cover e' gia' ritirato, quindi non serve altro. */
+      function skipCoverOnBackForward() {
+        if (navigationType() === 'back_forward') {
+          document.documentElement.classList.add(SKIP_CLASS);
+        }
+      }
+
+      function navigationType() {
+        const entry = performance.getEntriesByType
+          ? performance.getEntriesByType('navigation')[0]
+          : null;
+        if (entry && entry.type) return entry.type;
+        // Safari vecchi: 2 e' TYPE_BACK_FORWARD
+        const legacy = performance.navigation;
+        return legacy && legacy.type === 2 ? 'back_forward' : 'navigate';
+      }
 
       retireCoverWhenFadeEnds();
 
