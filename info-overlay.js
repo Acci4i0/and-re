@@ -17,9 +17,14 @@
 (function () {
   "use strict";
 
-  var VELOCITA = 7;        // l'originale impiega ~14,7s: qui ~2,1 di disegno
-  var ATTESA_FINE = 200;   // respiro sulla scritta finita, prima del lampo
-  var LAMPO = 160;         // durata del bianco che copre il cambio pagina
+  // L'originale impiega ~14,7s. A 7 la mano correva: il tratto arrivava prima
+  // che l'occhio seguisse. A 3,5 il disegno dura ~4,2s e si vede la matita
+  // rallentare negli angoli, che e' quello che lo fa sembrare una mano.
+  var VELOCITA = 3.5;
+  // Chiusa la O si passa subito: niente pausa di cortesia, il cruciverba e'
+  // gia' scaricato e questa animazione E' il caricamento della pagina.
+  var ATTESA_FINE = 90;
+  var LAMPO = 110;
 
   var velo = document.getElementById("info-overlay");
   var cv = document.getElementById("info-canvas");
@@ -278,4 +283,20 @@
   });
 
   window.addEventListener("resize", function () { if (inCorso) ridimensiona(); });
+
+  /* Tornando indietro dal cruciverba il browser puo' ripescare questa pagina
+     dalla sua memoria (bfcache) e la rimette ESATTAMENTE com'era al momento
+     in cui l'hai lasciata: con il velo bianco aperto. Risultato: premi la
+     freccia indietro e trovi una pagina bianca invece della scrivania.
+
+     Qui il velo viene richiuso e lo stato azzerato, cosi' la cartella info
+     torna anche cliccabile una seconda volta. persisted distingue il
+     ripristino dalla bfcache da un caricamento normale. */
+  window.addEventListener("pageshow", function (e) {
+    if (!e.persisted) return;
+    inCorso = false;
+    velo.hidden = true;
+    velo.setAttribute("aria-hidden", "true");
+    velo.classList.remove("info-overlay--lampo");
+  });
 })();

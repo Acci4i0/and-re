@@ -232,8 +232,8 @@ function currentWordCount() {
 }
 
 // Come l'originale: a cruciverba completo la pagina si ricarica poco dopo
-// (ed è per questo che al load compare il preloader col contatore —
-// vedi preloader.js).
+// (il preloader col contatore e' stato tolto: ad aprire il cruciverba
+// adesso e' l'animazione INFO della home, che fa da caricamento).
 function scheduleReload() {
   setTimeout(() => location.reload(), RELOAD_AFTER_COMPLETION_MS);
 }
