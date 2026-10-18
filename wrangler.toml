@@ -1,0 +1,15 @@
+# Configurazione del Worker che serve and-re.com.
+#
+# Finora questo file non esisteva, e senza di esso "npx wrangler deploy"
+# pubblica la radice del repo: per questo online finivano build.sh, .gitignore
+# e tutto il sorgente della galleria, e per questo /foto/ non compariva — viene
+# creata dalla build, che non veniva eseguita.
+#
+# "name" deve restare "andre": e' il Worker a cui e' agganciato il dominio.
+# Cambiarlo ne creerebbe un altro e il sito resterebbe quello vecchio.
+
+name = "andre"
+compatibility_date = "2026-10-18"
+
+[assets]
+directory = "./_site"

@@ -30,9 +30,14 @@ rsync -a \
   --exclude 'foto-src/' \
   --exclude '.git/' \
   --exclude '.github/' \
+  --exclude '.gitignore' \
   --exclude 'node_modules/' \
   --exclude '_analysis/' \
   --exclude 'build.sh' \
+  --exclude 'wrangler.toml' \
+  --exclude '*.md' \
+  --exclude 'LICENSE' \
+  --exclude 'content:nuthoughts.rtf' \
   ./ _site/
 
 mkdir -p _site/foto
