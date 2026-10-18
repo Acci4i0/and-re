@@ -478,6 +478,12 @@ video.nt-photo--master { height: auto; }
   cursor: wait;
 }
 
+/* L'attributo hidden da solo NON basta: il display:grid qui sopra e' una regola
+   d'autore e batte il display:none che il browser applica a [hidden]. Senza
+   questa riga il velo resta aperto dal primo istante e copre tutta la home di
+   bianco — la scrivania c'e', ma sotto. */
+.info-overlay[hidden] { display: none; }
+
 /* Il canvas tiene il rapporto del disegno originale e si stringe sulla
    finestra: la geometria dei puntini e' in coordinate 960x380 e viene scalata,
    non ricalcolata. */
