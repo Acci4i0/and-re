@@ -24,6 +24,41 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # La galleria e' una app Vite e va costruita. Il suo sorgente vive in
+      # foto-src/ e NON va pubblicato: quello che finisce online e' solo la
+      # dist, montata sotto /foto/.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: foto-src/package-lock.json
+
+      - name: Build the photo gallery
+        working-directory: foto-src
+        run: |
+          npm ci
+          npm run build
+
+      # Si monta una cartella a parte invece di pubblicare la radice del repo:
+      # cosi' sorgente della galleria, node_modules e roba di servizio restano
+      # fuori dal sito senza doverli elencare uno per uno in fase di upload.
+      - name: Assemble the site
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude '_site/' \
+            --exclude 'foto-src/' \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'node_modules/' \
+            ./ _site/
+          mkdir -p _site/foto
+          cp -R foto-src/dist/. _site/foto/
+          echo "--- cosa viene pubblicato ---"
+          du -sh _site
+          ls _site
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -32,7 +67,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

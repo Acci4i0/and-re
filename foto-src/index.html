@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- Rebuild study of the Foam Talent 2024 digital exhibition (foam.org/talent-2024).
+     Original concept and design © Foam. Rebuilt for study purposes with
+     placeholder content: no original assets, images, fonts or code are used. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Cloud — rebuild study</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #fff;
+        height: 100%;
+        /* Il riferimento usa font proprietari (Monument Grotesk / PurpleHaze):
+           qui uno stack di sistema equivalente, i font non fanno parte dello scope. */
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      #root {
+        height: 100%;
+      }
+      canvas {
+        display: block;
+      }
+      button {
+        appearance: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      /* Lettere del titolo dell'intro: replica dell'animazione CSS del
+         riferimento (2000ms forwards, delay per-lettera inline; keyframes di
+         font-size 34->69px mobile / 64->130px desktop, unico breakpoint a
+         768px [bundle + live]). Il riferimento usa "Purple Haze" di Font
+         Spectrum (Walthert/Maarleveld), font display op-art COMMERCIALE
+         (Future Fonts) con assi variabili WTUN/WTSP animati: non
+         ridistribuibile qui. Al suo posto Monoton (SIL OFL, self-hostato via
+         Fontsource): stesso carattere op-art a linee concentriche, peso
+         unico 400 (niente animazione di weight: il finto grassetto
+         sintetico rovinerebbe il tratteggio). Con una licenza Purple Haze
+         basta sostituire la font-family qui. */
+      .intro-letter {
+        font-family: 'Monoton', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 1;
+        /* La durata qui e' solo un ripiego: quella vera la scrive inline
+           IntroTypography da INTRO.letter.durationMs, perche' decide anche
+           quando parte lo slideshow. */
+        animation: intro-letter-grow-mobile 1100ms forwards;
+      }
+      /* Su mobile i corpi del bundle (34->69px) con Monoton sborderebbero:
+         Monoton è più largo di Purple Haze a parità di corpo. Valori scalati
+         (x0.855) per mantenere la proporzione ottica dell'originale, dove
+         TALENT occupa ~85% della larghezza del viewport mobile [live]. */
+      @keyframes intro-letter-grow-mobile {
+        0% {
+          font-size: 29px;
+        }
+        100% {
+          font-size: 59px;
+        }
+      }
+      @media (min-width: 768px) {
+        .intro-letter {
+          font-size: 44px;
+          animation-name: intro-letter-grow;
+        }
+      }
+      @keyframes intro-letter-grow {
+        0% {
+          font-size: 64px;
+        }
+        100% {
+          font-size: 130px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

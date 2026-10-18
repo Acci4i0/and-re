@@ -16,3 +16,8 @@ _analysis/sidebyside/*_t3000ms.png
 lavoro.html
 lavoro.css
 lavoro.js
+
+# galleria: sorgente versionato, build e dipendenze no
+foto-src/node_modules/
+foto-src/dist/
+_site/
