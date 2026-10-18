@@ -118,18 +118,42 @@
       const RETIRED_CLASS = 'intro--retired';
       const SKIP_CLASS = 'intro-skip';
 
-      skipCoverOnBackForward();
+      const SEEN_KEY = 'intro-vista';
 
-      /* Il tipo di navigazione lo dice il browser:
-           'reload'       -> ricaricata a mano, l'intro va rifatta
-           'back_forward' -> si torna da asterione o master, niente intro
-           'navigate'     -> primo arrivo, l'intro va fatta
-         Quando la pagina viene ripescata dalla bfcache non viene nemmeno
-         rieseguita e il cover e' gia' ritirato, quindi non serve altro. */
-      function skipCoverOnBackForward() {
-        if (navigationType() === 'back_forward') {
+      decideCover();
+
+      /* L'intro si rivede solo aprendo il sito o ricaricandolo.
+
+         Prima questo si decideva dal tipo di navigazione dichiarato dal
+         browser ('back_forward' -> salta). Su desktop funziona; su Safari
+         iPhone no: tornando indietro dichiara spesso una navigazione normale,
+         e l'azzurro ripartiva a ogni ritorno da asterione o master.
+
+         Ora decide un segno lasciato nella scheda: la prima volta che la home
+         si apre, l'intro parte e lascia il segno. Ogni altro arrivo nella
+         stessa scheda lo trova e non la rifa', comunque ci si sia arrivati.
+         Il ricaricamento e' l'unica eccezione, perche' e' il gesto con cui si
+         chiede esplicitamente la pagina da capo.
+
+         sessionStorage e non localStorage: il segno dura quanto la scheda.
+         Chiudi e riapri il sito domani, e l'intro ti saluta di nuovo. */
+      function decideCover() {
+        if (navigationType() === 'reload') { markSeen(); return; }
+        if (alreadySeen()) {
           document.documentElement.classList.add(SKIP_CLASS);
+          return;
         }
+        markSeen();
+      }
+
+      /* In navigazione privata scrivere puo' lanciare: in quel caso l'intro
+         riparte, che e' il male minore rispetto a una pagina che non carica. */
+      function alreadySeen() {
+        try { return sessionStorage.getItem(SEEN_KEY) === '1'; } catch (err) { return false; }
+      }
+
+      function markSeen() {
+        try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (err) { /* ignora */ }
       }
 
       function navigationType() {
