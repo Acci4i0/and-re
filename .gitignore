@@ -11,3 +11,8 @@ _analysis/raw/
 # frame del fade: mostrano progressivamente la home del sito di riferimento -> solo locali
 _analysis/sidebyside/*_t2*ms.png
 _analysis/sidebyside/*_t3000ms.png
+
+# in lavorazione, non ancora da pubblicare
+lavoro.html
+lavoro.css
+lavoro.js

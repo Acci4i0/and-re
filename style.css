@@ -461,3 +461,4 @@ img { max-width: 100%; height: auto; display: block; vertical-align: middle; }
 
 /* Il video dell'opera in movimento sta nella stessa lastra delle immagini. */
 video.nt-photo--master { height: auto; }
+
