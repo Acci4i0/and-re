@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Rebuild study of sa-m.fr by Samuel Dumez. Original concept and design © Samuel Dumez. Rebuilt for study purposes. -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Andrea Lando</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Preloader col contatore (stesso di 2Dgallery): crea da solo il suo
+         markup e si rimuove a fine animazione — vedi preloader.js -->
+    <script src="preloader.js"></script>
+
+    <!-- Camminata in alto a sinistra: puramente decorativa, sempre in moto e
+         senza interazione, quindi un div aria-hidden e non un controllo.
+         L'animazione e' tutta in CSS (sprite sheet + steps), nessun JS. -->
+    <div class="walk" aria-hidden="true"></div>
+
+    <!-- Visibile solo su telefono in landscape: invita a tornare in verticale. -->
+    <div class="rotate-notice">
+      <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="46" y="38" width="44" height="70" rx="7" />
+        <line x1="62" y1="100" x2="74" y2="100" />
+        <path d="M30 56 A34 34 0 0 1 64 22" />
+        <path d="M64 22 l-11 -1 M64 22 l-1 11" />
+      </svg>
+      <p>Please rotate your device</p>
+    </div>
+
+    <main class="grid-area">
+      <div class="grid" id="grid"></div>
+    </main>
+
+    <!-- INFO + CONTACT: generato da script.js a partire dai dati di puzzle.js -->
+    <footer id="footer"></footer>
+
+    <script src="puzzle.js"></script>
+    <script src="generator.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
