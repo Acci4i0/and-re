@@ -195,11 +195,10 @@
 
   var ctx = cv.getContext("2d");
   var ridotto = window.matchMedia("(prefers-reduced-motion: reduce)");
-  /* La parola resta ferma mezzo secondo prima di andarsene. Senza questa
-     pausa l'ultima O si chiudeva e la pagina cambiava nello stesso istante:
-     la parola non si faceva in tempo a leggere, e il disegno sembrava un
-     effetto di passaggio invece che qualcosa da guardare. */
-  var ATTESA_FINE = 550;
+  /* La parola resta ferma un attimo prima di andarsene: il tempo di vederla
+     compiuta, non di aspettare. A 90ms l'ultima O si chiudeva e la pagina
+     cambiava nello stesso istante; a 550 si sentiva l'attesa. */
+  var ATTESA_FINE = 350;
   var LAMPO = 110;        // il bianco che copre il cambio pagina
   var inCorso = false;
   var scala = 1;
