@@ -21,3 +21,8 @@ lavoro.js
 foto-src/node_modules/
 foto-src/dist/
 _site/
+
+# modello di CV usato solo come riferimento di impaginazione.
+# La barra iniziale lo ancora alla radice: senza, la regola
+# prenderebbe anche assets/cv/, che invece va pubblicata.
+/cv/

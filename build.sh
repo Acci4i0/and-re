@@ -30,6 +30,7 @@ rsync -a \
   --exclude '.gitignore' \
   --exclude 'node_modules/' \
   --exclude '_analysis/' \
+  --exclude 'cv/' \
   --exclude 'build.sh' \
   --exclude 'tools/' \
   --exclude '*.md' \

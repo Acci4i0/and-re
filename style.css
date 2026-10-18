@@ -500,3 +500,124 @@ video.nt-photo--master { height: auto; }
   transition: background-color 160ms linear;
 }
 .apertura--lampo .apertura-canvas { opacity: 0; transition: opacity 120ms linear; }
+
+/* ===== CV nella finestra del quadrato azzurro =====
+   Quadrato per costruzione: il pannello della finestra era gia' vincolato a
+   min(100vh, 100vw, 800px); qui quella misura diventa una variabile usata sia
+   per il lato sia per il corpo del testo. Cosi' il CV si rimpicciolisce tutto
+   insieme e le proporzioni restano quelle a ogni schermo, invece di avere un
+   testo fisso dentro un riquadro che cambia. */
+
+:root { --cv-lato: calc(min(100vh, 100vw, 800px) - 32px); }
+
+.modal-panel:has(.cv) {
+  width: var(--cv-lato);
+  height: var(--cv-lato);
+  background: var(--intro-blue, #49A4F6);
+}
+
+.cv {
+  width: 100%;
+  height: 100%;
+  padding: calc(var(--cv-lato) * .055);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cv-lato) * .035);
+  /* il corpo segue il lato: 1.35% del quadrato */
+  font-size: calc(var(--cv-lato) * .0135);
+  line-height: 1.45;
+  color: #fff;
+  background: var(--intro-blue, #49A4F6);
+  font-family: JetBrains Mono, monospace;
+  overflow: hidden;
+}
+
+.cv a { color: inherit; text-decoration: none; }
+.cv a:hover { text-decoration: underline; text-underline-offset: .25em; }
+.cv ul { margin: 0; padding: 0; list-style: none; }
+.cv p { margin: 0; }
+
+/* ===== nome e ritratto, ciascuno in cima alla sua colonna =====
+   Non c'e' una testata a tutta larghezza: la sua altezza l'avrebbe dettata il
+   ritratto, lasciando un vuoto a sinistra fra il nome e il primo blocco. Come
+   nel modello, le due colonne partono entrambe dall'alto e il ritratto spinge
+   piu' in basso solo i blocchi di destra. */
+
+.cv-intestazione { flex: none; }
+
+.cv-nome {
+  margin: 0;
+  font-size: calc(var(--cv-lato) * .028);
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.1;
+}
+
+.cv-ruolo {
+  margin: calc(var(--cv-lato) * .008) 0 0;
+  opacity: .85;
+  letter-spacing: .04em;
+}
+
+/* Il ritratto e' virato in azzurro e bianco: le ombre cadono esattamente sul
+   colore del fondo, quindi la figura emerge dalla pagina invece di stare
+   dentro un riquadro. Allineato a destra come il resto della colonna. */
+.cv-ritratto {
+  width: calc(var(--cv-lato) * .19);
+  height: auto;
+  flex: none;
+  display: block;
+  margin-left: auto;
+}
+
+/* ===== due colonne ===== */
+
+.cv-corpo {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--cv-lato) * .045);
+  min-height: 0;
+}
+
+.cv-colonna {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--cv-lato) * .028);
+  min-height: 0;
+}
+
+/* La colonna di destra e' allineata a destra, come nel modello: le due
+   colonne si leggono verso il centro e il bianco resta ai bordi. */
+.cv-colonna--destra { text-align: right; }
+
+.cv-blocco h2 {
+  margin: 0 0 calc(var(--cv-lato) * .008);
+  font-size: inherit;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.cv-blocco li { margin-bottom: calc(var(--cv-lato) * .004); }
+
+/* Titolo del progetto e sua riga di dettaglio: il dettaglio va a capo e
+   smorzato, cosi' l'occhio scorre prima i nomi. */
+.cv-blocco b { font-weight: 700; display: block; }
+.cv-blocco b + span { display: block; opacity: .75; }
+
+.cv-contatti { margin-top: auto; }
+
+/* Quello che manca e' segnato, non inventato. */
+.cv-manca {
+  opacity: .6;
+  font-style: italic;
+}
+
+/* Sotto una certa misura il quadrato a due colonne diventa illeggibile:
+   si passa a una colonna sola e si lascia scorrere. */
+@media (max-width: 560px) {
+  .cv { font-size: calc(var(--cv-lato) * .022); overflow-y: auto; }
+  .cv-corpo { grid-template-columns: 1fr; }
+  .cv-colonna--destra { text-align: left; }
+  .cv-ritratto { width: calc(var(--cv-lato) * .24); }
+}
