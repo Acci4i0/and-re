@@ -511,8 +511,13 @@ video.nt-photo--master { height: auto; }
 :root { --cv-lato: calc(min(100vh, 100vw, 800px) - 32px); }
 
 .modal-panel:has(.cv) {
+  /* Anche i massimi, non solo le misure: il pannello ne porta di suoi fissati
+     a -32px, che altrimenti ricapterebbero il quadrato e renderebbero muta la
+     variabile. */
   width: var(--cv-lato);
   height: var(--cv-lato);
+  max-width: var(--cv-lato);
+  max-height: var(--cv-lato);
   background: var(--intro-blue, #49A4F6);
 }
 
@@ -524,8 +529,8 @@ video.nt-photo--master { height: auto; }
   flex-direction: column;
   gap: calc(var(--cv-lato) * .035);
   /* il corpo segue il lato: 1.35% del quadrato */
-  font-size: calc(var(--cv-lato) * .0135);
-  line-height: 1.45;
+  font-size: calc(var(--cv-lato) * .0125);
+  line-height: 1.4;
   color: #fff;
   background: var(--intro-blue, #49A4F6);
   font-family: JetBrains Mono, monospace;
@@ -607,17 +612,28 @@ video.nt-photo--master { height: auto; }
 
 .cv-contatti { margin-top: auto; }
 
+/* Nelle competenze l'etichetta sta accanto al contenuto invece che sopra:
+   tre righe in meno, che in un quadrato contano. */
+.cv-competenze li { display: flex; gap: .6em; }
+.cv-competenze b { flex: none; min-width: 5.5em; display: block; }
+.cv-competenze b + span { display: block; opacity: .85; }
+
 /* Quello che manca e' segnato, non inventato. */
 .cv-manca {
   opacity: .6;
   font-style: italic;
 }
 
-/* Sotto una certa misura il quadrato a due colonne diventa illeggibile:
-   si passa a una colonna sola e si lascia scorrere. */
+/* Resta un quadrato a due colonne a ogni misura, telefono compreso.
+   Nessuna correzione del corpo del testo su schermo stretto: l'impaginazione
+   e' tutta in proporzione al lato, quindi con lo stesso moltiplicatore ci sta
+   identica ovunque. Alzandolo per renderlo piu' leggibile il contenuto usciva
+   dal quadrato, che e' esattamente cio' che non deve succedere.
+
+   Sul telefono il testo diventa minuto: e' il prezzo di vedere tutto il CV in
+   un solo quadrato, e si legge allargando con due dita. Il margine scende da
+   32 a 16px per guadagnare quel che si puo'. */
 @media (max-width: 560px) {
-  .cv { font-size: calc(var(--cv-lato) * .022); overflow-y: auto; }
-  .cv-corpo { grid-template-columns: 1fr; }
-  .cv-colonna--destra { text-align: left; }
-  .cv-ritratto { width: calc(var(--cv-lato) * .24); }
+  :root { --cv-lato: calc(min(100vh, 100vw, 800px) - 16px); }
+  .cv-ritratto { width: calc(var(--cv-lato) * .22); }
 }

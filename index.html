@@ -289,47 +289,45 @@
     <div class="modal-center">
       <div class="modal-panel" id="modal-panel">
   <!-- ===== CV =====
-       Appare nella finestra che si apre dal quadrato azzurro. Quadrato, non
-       rettangolare: il pannello e' gia' vincolato a min(100vh,100vw,800px) e
-       il testo si dimensiona sulla stessa misura, cosi' le proporzioni non
-       cambiano mai.
+       Appare nella finestra che si apre dal quadrato azzurro. Quadrato a ogni
+       misura, telefono compreso: il pannello e' vincolato a
+       min(100vh,100vw,800px) e il testo si dimensiona sulla stessa misura,
+       quindi rimpicciolisce tutto insieme invece di riorganizzarsi.
 
-       Le informazioni vengono dal cruciverba (info/puzzle.js), che e' la
-       biografia gia' scritta da Andrea, e dai progetti che stanno in questo
-       sito. Niente e' inventato: cio' che manca e' segnato come tale. -->
+       I contenuti vengono dal CV di Andrea (Andre_Lando_CV.pdf). Non e'
+       incluso data di nascita: e' l'unico dato del CV che non compare gia'
+       altrove nel sito, e pubblicarlo e' una scelta sua, non mia. -->
   <div class="cv" id="cv">
-
     <div class="cv-corpo">
 
       <div class="cv-colonna">
         <div class="cv-intestazione">
           <h1 class="cv-nome">ANDREA LANDO</h1>
-          <p class="cv-ruolo">UI/UX designer &middot; detto Acciaio</p>
+          <p class="cv-ruolo">Sviluppatore front-end &middot; ingegneria gestionale</p>
         </div>
 
         <section class="cv-blocco">
           <h2>CHI SONO</h2>
-          <p>Ingegnere gestionale che costruisce siti. Studio le interazioni
-             che mi colpiscono e le rifaccio da zero in vanilla: niente
-             framework, niente build, solo HTML, CSS e JavaScript.</p>
+          <p>Lavoro dove si incontrano prodotto, dati e interfaccia. A parte,
+             rifaccio da zero in vanilla le interazioni che mi colpiscono.</p>
         </section>
 
-        <section class="cv-blocco">
-          <h2>COSA SO FARE</h2>
+        <section class="cv-blocco cv-competenze">
+          <h2>COMPETENZE</h2>
           <ul>
-            <li>HTML, CSS e JavaScript vanilla</li>
-            <li>Interazioni e animazioni su canvas</li>
-            <li>WebGL e scene 3D</li>
-            <li>React e Vite</li>
-            <li>Ricostruire interfacce studiandole</li>
+            <li><b>Front-end</b><span>React, Next.js, JavaScript e TypeScript, HTML, CSS</span></li>
+            <li><b>Strumenti</b><span>Git e GitHub, deploy su GitHub Pages</span></li>
+            <li><b>Anche</b><span>Python, SQL e PostgreSQL, modellazione dati
+                relazionali, sistemi LLM e RAG</span></li>
           </ul>
         </section>
 
         <section class="cv-blocco">
-          <h2>ALTRO</h2>
+          <h2>INTERESSI</h2>
           <ul>
-            <li>Sport</li>
-            <li>Libri &mdash; Tabucchi</li>
+            <li>Automotive e letteratura</li>
+            <li>Calcio, portiere &mdash; Europei di minifootball, Bratislava 2026</li>
+            <li>Dama olimpica &mdash; MindLab Olympics, Istanbul 2015</li>
           </ul>
         </section>
 
@@ -338,9 +336,9 @@
           <ul>
             <li><a href="mailto:lando.andrea04@gmail.com">lando.andrea04@gmail.com</a></li>
             <li><a href="tel:+393337216052">+39 3337216052</a></li>
-            <li><a href="https://instagram.com/andrelndo" target="_blank" rel="noreferrer">@andrelndo</a></li>
-            <li><a href="https://github.com/Acci4i0" target="_blank" rel="noreferrer">github.com/Acci4i0</a></li>
-            <li>and-re.com</li>
+            <li><a href="https://instagram.com/andrelndo" target="_blank" rel="noreferrer">@andrelndo</a>
+                &middot; <a href="https://github.com/Acci4i0" target="_blank" rel="noreferrer">github.com/Acci4i0</a></li>
+            <li>and-re.com &middot; Tezze sul Brenta (VI)</li>
           </ul>
         </section>
       </div>
@@ -350,28 +348,34 @@
              alt="Ritratto di Andrea bambino, virato in azzurro e bianco">
 
         <section class="cv-blocco">
-          <h2>PROGETTI</h2>
+          <h2>ESPERIENZA</h2>
           <ul>
-            <li><b>Vibrolux</b><span>Sito aziendale &middot; 2026</span></li>
-            <li><b>Fase</b><span>Sito aziendale &middot; 2026</span></li>
-            <li><b>Estetica Skincare</b><span>Sito aziendale &middot; 2026</span></li>
-            <li><b>3D Gallery</b><span>Nuvola navigabile di fotografie &middot; 2026</span></li>
-            <li><b>Cruciverba</b><span>Sito personale a griglia &middot; 2026</span></li>
-            <li><b>and-re.com</b><span>Sito personale a scrivania &middot; 2026</span></li>
+            <li><b>Sviluppatore front-end</b><span>BBM S.p.A. &middot; Rossano Veneto &middot; 2025&ndash;2026</span></li>
           </ul>
         </section>
 
         <section class="cv-blocco">
           <h2>STUDI</h2>
           <ul>
-            <li><b>Ingegneria gestionale</b><span class="cv-manca">ateneo e anni da aggiungere</span></li>
+            <li><b>Ingegneria gestionale</b><span>Universit&agrave; di Padova &middot; Vicenza &middot; 2023&ndash;2026</span></li>
+            <li><b>Tesi</b><span>Ingegnerizzazione di un servizio informativo basato su LLM</span></li>
+          </ul>
+        </section>
+
+        <section class="cv-blocco">
+          <h2>PROGETTI</h2>
+          <ul>
+            <li><b>Deepser</b><span>Migrazione dati ERP: schema PostgreSQL, visualizzatore Next.js</span></li>
+            <li><b>Analisi di contratti</b><span>Estrazione di clausole con LLM</span></li>
+            <li><b>and-re.com</b><span>Sito personale, tutto in vanilla</span></li>
           </ul>
         </section>
 
         <section class="cv-blocco">
           <h2>LINGUE</h2>
           <ul>
-            <li><span class="cv-manca">da aggiungere</span></li>
+            <li><b>Italiano</b><span>madrelingua</span></li>
+            <li><b>Inglese</b><span>IELTS C1 Advanced</span></li>
           </ul>
         </section>
       </div>
