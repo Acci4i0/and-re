@@ -18,7 +18,9 @@
                  { video: "…mp4", poster: "…jpg", w, h, alt }
 
    Le immagini sono screenshot dei siti online, in 4:3 (1600x1200), presi
-   scorrendo la homepage di ciascuno. Le descrizioni vengono dai siti stessi:
+   scorrendo la homepage di ciascuno (esteticaskincare.it, fasemec.com,
+   acci4i0.github.io/vibrolux). Rifacendo una foto con lo stesso nome non
+   serve cambiarlo: la build aggiunge al percorso l'impronta del file. Le descrizioni vengono dai siti stessi:
    da rivedere con parole tue. */
 
 window.WORK = {
@@ -41,7 +43,7 @@ window.WORK = {
       descrizione:
         "Il sito di un centro estetico a San Giuseppe di Cassola, aperto dal 1990: trattamenti viso e corpo, tecnologie, e prenotazione su WhatsApp o al telefono.",
       tag: ["Sito web", "Beauty", "Centro estetico"],
-      link: [{ etichetta: "VISITA", href: "https://acci4i0.github.io/estetica/" }],
+      link: [{ etichetta: "VISITA", href: "https://esteticaskincare.it/" }],
       cover: { src: "assets/photos/estetica-skincare/cover.jpg", w: 1600, h: 1200, alt: "Homepage di Estetica Skincare: il nome in grande su una crema avorio, sotto l'elenco dei trattamenti" },
       media: [
         { src: "assets/photos/estetica-skincare/01.jpg", w: 1600, h: 1200, etichetta: "TRATTAMENTI", alt: "Griglia dei trattamenti viso, ognuno con una foto" },
@@ -58,11 +60,11 @@ window.WORK = {
       descrizione:
         "Il sito di Fase Mechanical Engineering: centrifughe, impianti e trituratori per il truciolo metallico, con una pagina per ogni prodotto.",
       tag: ["Sito web", "Industria", "Catalogo"],
-      link: [{ etichetta: "VISITA", href: "https://www.fasemec.com/" }],
+      link: [{ etichetta: "VISITA", href: "https://fasemec.com/" }],
       cover: { src: "assets/photos/fase/cover.jpg", w: 1600, h: 1200, alt: "Homepage di Fase: una centrifuga in primo piano e il titolo Truciolo asciutto, fluido in circolo" },
       media: [
-        { src: "assets/photos/fase/01.jpg", w: 1600, h: 1200, etichetta: "HOMEPAGE", alt: "Un blocco rosso di testo sopra la foto di un macchinario con il marchio Fase" },
-        { src: "assets/photos/fase/02.jpg", w: 1600, h: 1200, etichetta: "PRODOTTI", alt: "Le tre famiglie di prodotto: centrifughe, trituratori, impianti" },
+        { src: "assets/photos/fase/01.jpg", w: 1600, h: 1200, etichetta: "TECNOLOGIA", alt: "Primo piano di una catena di trasmissione con il marchio Fase" },
+        { src: "assets/photos/fase/02.jpg", w: 1600, h: 1200, etichetta: "PRODOTTI", alt: "Ogni reparto ha il suo truciolo: le tre famiglie di prodotto, centrifughe, trituratori e impianti" },
         { src: "assets/photos/fase/03.jpg", w: 1600, h: 1200, etichetta: "AZIENDA", alt: "Sezione scura con il titolo Resa misurata sul materiale" },
       ],
     },

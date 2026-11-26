@@ -37,6 +37,35 @@ function impronta(file) {
 
 let timbrati = 0;
 
+/* Prima i media citati dentro i file JS. Le foto di work/ stanno in
+   work/progetti.js e non in un <img> dell'HTML: senza questo passaggio una
+   foto rifatta con lo stesso nome restava per ore quella vecchia nel browser
+   di chi aveva gia' aperto la pagina (e' successo con i segnaposto).
+   Va fatto prima dell'HTML: cambia il contenuto del JS, quindi la sua impronta. */
+function fileJs(dir) {
+  return readdirSync(dir).flatMap((nome) => {
+    const p = join(dir, nome);
+    return statSync(p).isDirectory() ? fileJs(p) : (nome.endsWith(".js") ? [p] : []);
+  });
+}
+let media = 0;
+for (const js of fileJs(RADICE)) {
+  const base = dirname(js);
+  const originale = readFileSync(js, "utf8");
+  const nuovo = originale.replace(
+    /(["'])([^"'?:#\s]+\.(?:jpe?g|png|webp|avif|gif|mp4|webm))\1/g,
+    (intero, q, percorso) => {
+      if (percorso.startsWith("/") || percorso.startsWith("http")) return intero;
+      const file = resolve(base, percorso);
+      if (!existsSync(file) || relative(resolve(RADICE), file).startsWith("..")) return intero;
+      media++;
+      return `${q}${percorso}?v=${impronta(file)}${q}`;
+    }
+  );
+  if (nuovo !== originale) writeFileSync(js, nuovo);
+}
+console.log(`  versionati ${media} richiami a media nei JS`);
+
 for (const pagina of paginaHtml(RADICE)) {
   const base = dirname(pagina);
   const originale = readFileSync(pagina, "utf8");
