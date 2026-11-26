@@ -53,15 +53,14 @@
   root.innerHTML =
     '<div class="col-spacer" aria-hidden="true"></div>' +
     '<div class="col-stage">' + items + "</div>" +
-    '<div class="col-type fixed-col" aria-hidden="true"></div>';
+    '<div class="col-type" aria-hidden="true"></div>';
 
   var spacer = root.firstChild;
   var stage = spacer.nextSibling;
   var typeLayer = stage.nextSibling;
 
-  root.addEventListener("click", function (e) {
-    if (e.target.closest("[data-tile]")) Work.rememberEntry("home");
-  });
+  // come nel riferimento: INDIETRO riporta all'ultima lista vista, home o indice
+  Work.rememberEntry("home");
 
   /* la riga al centro: a ogni cambio di progetto si rimonta, cosi' le parole
      risalgono (nel riferimento e' un componente React con key nuova) */
@@ -69,8 +68,10 @@
     var p = P[i] || P[0];
     typeLayer.innerHTML =
       '<div class="col-row">' +
-        '<span class="col-line"><span style="--i:0">' + Work.esc(p.titolo) + "</span></span>" +
-        '<span class="col-line"><span style="--i:3">' + Work.esc(p.anno) + "</span></span>" +
+        '<span class="col-line col-name"><span style="--i:0">' + Work.esc(p.titolo) + "</span></span>" +
+        '<span class="col-line col-kind"><span style="--i:1">' + Work.esc(p.tipo) + "</span></span>" +
+        '<span class="col-line col-category"><span style="--i:2">' + Work.esc(p.categoria) + "</span></span>" +
+        '<span class="col-line col-year"><span style="--i:3">' + Work.esc(p.anno) + "</span></span>" +
       "</div>";
   }
   renderType(0);
@@ -162,15 +163,16 @@
   root.setAttribute("data-engine", "pending");
   if (intro) stage.inert = true;
 
-  var N = { vw: 0, vh: 0, width: 0, height: 0, pitch: 0 };
+  var N = { vw: 0, vh: 0, width: 0, height: 0, pitch: 0, compact: false };
   var L = 0; // centro dello spacer
 
   function measure() {
-    N.vw = root.clientWidth;
+    N.vw = html.clientWidth;
     N.vh = window.innerHeight;
     N.width = A[0].tile.offsetWidth;
     N.height = A[0].tile.offsetHeight;
     N.pitch = N.height + 12;
+    N.compact = N.vw < 1200;
     root.style.setProperty("--centre", (N.vh / 2).toFixed(1) + "px");
     var h = Math.round(N.pitch * b * 240);
     spacer.style.height = h + "px";
@@ -239,7 +241,7 @@
     var h = N.height * d;
     var y = h + 12 * g + (settled ? 0 : 14 * (1 - grow));
     var mid = N.vh / 2;
-    var par = reduced ? 0 : 0.05;
+    var par = reduced ? 0 : N.compact ? 0.05 : 0.11;
     var at = live ? (window.scrollY - C) / N.pitch : T.steps - spin(t);
     var nearest = 0, best = Infinity;
 
@@ -361,7 +363,7 @@
   // (sul telefono la barra dell'indirizzo che compare non conta)
   var rt = 0;
   window.addEventListener("resize", function () {
-    if (root.clientWidth === N.vw && (coarse || Math.abs(window.innerHeight - N.vh) < 80)) return;
+    if (html.clientWidth === N.vw && (coarse || Math.abs(window.innerHeight - N.vh) < 80)) return;
     clearTimeout(rt);
     rt = setTimeout(function () {
       var pos = live ? (window.scrollY - C) / N.pitch : 0;

@@ -42,10 +42,12 @@
       return '<li><a class="hit" href="' + esc(c.href) + '"' +
         (/^https?:/.test(c.href) ? ' target="_blank" rel="noreferrer"' : "") + ">" + esc(c.etichetta) + "</a></li>";
     }).join("");
+    var insta = W.contatti[0];
     h.innerHTML =
-      '<nav class="nav fixed-col" aria-label="Principale">' +
+      '<nav class="nav fixed-full" aria-label="Principale">' +
         '<div class="nav-row nav-top">' +
-          '<a class="nav-item hit" href="./"' + (current === "home" ? ' aria-current="page"' : "") + ">" + navItem(esc(W.nome), 0) + "</a>" +
+          '<a class="nav-item nav-wordmark hit" href="./"' + (current === "home" ? ' aria-current="page"' : "") + ">" + navItem(esc(W.nome), 0) + "</a>" +
+          '<a class="nav-item bar-only hit" href="./"' + (current === "home" ? ' aria-current="page"' : "") + ">" + navItem("IN EVIDENZA", 1) + "</a>" +
           '<a class="nav-item hit" href="progetti.html"' + (current === "index" ? ' aria-current="page"' : "") + ">" + navItem("PROGETTI", 2) + "</a>" +
         "</div>" +
         '<div class="nav-row nav-bottom">' +
@@ -53,7 +55,7 @@
           '<a class="nav-item hit" href="../">' + navItem("DESKTOP", 4) + "</a>" +
         "</div>" +
       "</nav>" +
-      '<div id="about" class="panel fixed-col" role="dialog" aria-label="About" data-open="false" inert>' +
+      '<div id="about" class="panel fixed-full" role="dialog" aria-label="About" data-open="false" inert>' +
         '<div class="panel-scrim" aria-hidden="true"></div>' +
         '<div class="panel-layer"><div class="panel-content">' +
           '<p class="t-detail panel-text">' + esc(W.about) + "</p>" +
@@ -62,6 +64,17 @@
         '<div class="panel-footer"></div>' +
       "</div>";
     document.body.insertBefore(h, document.body.firstChild);
+
+    // in basso a destra, da 810px in su (sotto e' nascosto dal CSS)
+    if (insta) {
+      var f = document.createElement("footer");
+      f.className = "footer";
+      f.innerHTML = '<a class="footer-link nav-item hit" href="' + esc(insta.href) + '" target="_blank" rel="noopener"><span class="mask">' +
+        '<span class="line footer-line" style="--i:5"><span>' + esc(insta.etichetta) + "</span>" +
+        '<svg class="footer-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor"/></svg>' +
+        "</span></span></a>";
+      document.body.appendChild(f);
+    }
 
     var btn = h.querySelector("button");
     var panel = h.querySelector(".panel");
@@ -111,12 +124,15 @@
 
   /* ============================ transizioni ============================ */
 
+  var instant = false;
+
   function transitions() {
     var capable = "onpagereveal" in window;
     if (capable) {
       // back/forward e ricarica: niente tendina, come nel riferimento
       var skip = function (e) {
         if (!e.viewTransition) return;
+        if (instant) { e.viewTransition.skipTransition(); return; }
         var t = window.navigation && navigation.activation && navigation.activation.navigationType;
         var a = e.activation && e.activation.navigationType;
         if (reduced || a === "traverse" || a === "reload" || (!a && (t === "traverse" || t === "reload"))) {
@@ -151,7 +167,8 @@
     }
   }
 
-  function navigate(href) {
+  function navigate(href, opts) {
+    if (opts && opts.instant) { instant = true; location.href = href; return; }
     if (!("onpagereveal" in window) && !reduced) {
       html.setAttribute("data-page-exit", "");
       setTimeout(function () { location.href = href; }, 250);

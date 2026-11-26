@@ -163,13 +163,9 @@ i video non partono da soli.
 
 ---
 
-## 9. Colonna mobile su desktop
-- Nessun breakpoint: **sempre e solo** le regole sotto gli 810 px.
-- Il documento scorre come al solito, ma tutto ciò che si vede sta in una colonna larga **390 px** centrata;
-  i livelli `fixed` (stage, nav, didascalia, About, velo) sono vincolati alla colonna, non alla finestra.
-- Fuori dalla colonna: sfondo neutro uniforme.
-- Il motore usa la larghezza della colonna, non della finestra.
-- Con il mouse lo scroll passa da Lenis (come l'originale su un dispositivo con puntatore fine).
+## 9. ~~Colonna mobile su desktop~~ (annullato il 26/11)
+Prima versione: su ogni schermo la sola versione mobile, in una colonna di 390 px. Sostituita su richiesta
+dai tre layout dell'originale, §12.
 
 ---
 
@@ -190,3 +186,61 @@ i video non partono da soli.
    `~/Desktop/fase/sito-fase`. Finché non mi dici quali usare, metto segnaposto.
 4. **master.html** (la pagina delle opere a cui oggi punta la cartella nera) resterebbe online ma senza link.
    Va bene, o la sposto da un'altra parte?
+
+---
+
+## 12. Desktop (≥ 1200 px) e tablet (810–1199 px)
+
+Analizzato a 1440×900 e 1920×1080 con mouse, a 1000×800 per il tablet. Griglia: 12 colonne,
+`--col = (100vw − 2·12 − 11·12) / 12`.
+
+### Home
+| | desktop | tablet | mobile |
+|---|---|---|---|
+| tile | 4 colonne centrali (`x = 12 + 4·(col+12)`) | 8 colonne (`x = 12 + 2·(col+12)`) | larghezza piena − 24 |
+| pannello `box` | **a destra del tile**, da `tile + 12` fino al bordo, sfondo **nero**: su ogni riga; quello attivo mostra la seconda immagine | sopra il tile, trasparente | sopra il tile |
+| didascalia | griglia 12 col.: nome 1–3 · tipo 4–7 · categoria 8–10 · anno 11–12 | nome · anno | nome · anno |
+| parallax copertina | **0,11** · altezza tile | 0,05 | 0,05 |
+
+Misure a 1440: tile 464×348 a x 488; pannello x 964, largo 476; passo 360 px (3 righe visibili).
+Intro e motore identici al mobile (stessa timeline), cambiano solo le misure.
+
+### Nav e footer
+- Da 810 px la nav è **una riga** in alto: wordmark a sinistra (`margin-right:auto`), poi a destra, distanziati
+  di 32 px: IN EVIDENZA · PROGETTI · ABOUT · DESKTOP (indici di risalita 0–4).
+- Footer fisso in basso a destra, `difference`: INSTAGRAM ↗ (indice 5). Nascosto sotto gli 810 px.
+- About: contenuto largo **560 px** al centro, gap 44 px; footer bianco del pannello su una riga.
+
+### Pagina progetto
+- ≥ 810: info `padding-top:120`, gap 36; immagini gap 40; **didascalie** sotto ogni immagine
+  ("COVER /" o "01 /" a sinistra con opacità .4, etichetta a destra), risalita a 0,2 s.
+- ≥ 1200: due colonne. Info **sticky** a sinistra (`flex:1`, `padding:200px 0`, alta quanto lo schermo),
+  immagini a destra (`flex:2`, gap 80, `padding:36px 0 200px`).
+- INDIETRO: punta all'ultima lista vista (home o indice), che la pagina lista memorizza **quando si apre**.
+  Se si arriva dall'indice ha 36 px di margine sopra, dalla home 36 sotto.
+
+### Scorri per il prossimo progetto (solo ≥ 1200 px con mouse)
+- In fondo alle immagini una riga: "SCORRI PER IL PROSSIMO PROGETTO" grigia (40%) con sopra la stessa scritta
+  nera tagliata da `clip-path: inset(0 X% 0 0)`; a destra un rettangolino 16×9 per progetto
+  (attuale opacità 1, altri .2).
+- Arrivati in fondo (entro 6 px) e **fermi 250 ms**, ogni evento rotella in giù aggiunge `delta/2400`
+  (delta limitato a ±120); in su toglie; se ci si allontana dal fondo torna a 0. Ignorato nei primi 600 ms.
+- Il valore mostrato insegue quello reale con `+= (target − shown)·0,14` a fotogramma.
+- Velo bianco fisso sopra la pagina, alto fino alla riga, con sfumatura di 90 px in basso:
+  opacità `0,9·p`, `backdrop-filter: blur(8·p px)`. Marcatori: attuale `1 − 0,8p`, successivo `0,2 + 0,8p`.
+- A p = 1: velo a tutto schermo, opacità 1 in 320 ms lineare; dopo **360 ms** si apre il progetto dopo
+  **senza tendina**, e lì il velo sfuma via in 400 ms `ease-out`.
+
+### Indice progetti
+- ≥ 810: due colonne, gap 40, `padding:200px 12px`.
+- ≥ 1200 con hover: ogni progetto a opacità .4 e titolo nascosto; al passaggio del mouse tutto a .99,
+  transizione 0,2 s.
+
+### Verifica (Fase 3)
+- Intro a 1440: dopo l'allineamento delle due registrazioni (6,5 ms, meno di un frame) posizioni entro
+  1,5 px sugli item visibili; tra UI e interattivo 1500 ms in entrambi; posizione finale identica (276 / 636).
+- Misure confrontate a 1920, 1440, 1000 e 390: tile, pannello, didascalia, colonna info, immagini,
+  didascalie, riga del prossimo progetto, griglia dell'indice **identiche al pixel**. Le sole differenze
+  vengono dai contenuti (lunghezza dei testi, numero di immagini e di progetti, font di sistema).
+- Scorri-per-il-prossimo: stessi eventi rotella iniettati nella pagina a 60 ms → riempimento e velo
+  identici fotogramma per fotogramma (5 %, 18 %, 31 %, 36 %, finale 38 % / opacità 0,3375).

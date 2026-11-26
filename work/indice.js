@@ -26,9 +26,7 @@
       }).join("") +
     "</ul></section>";
 
-  document.getElementById("main").addEventListener("click", function (e) {
-    if (e.target.closest(".i-project")) Work.rememberEntry("archive");
-  });
+  Work.rememberEntry("archive");
 
   Work.start("index");
 })();
