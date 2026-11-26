@@ -22,7 +22,7 @@
       --intro-hold-duration: 2000ms;
       --intro-fade-duration: 1000ms;
       --intro-fade-easing: cubic-bezier(0, 0.95, 0.44, 1);
-
+      
       /* griglia e tipografia (misurate a 1281-1620px) */
       --intro-gutter: 3px;
       --intro-font-size: 14px;
@@ -215,11 +215,14 @@
         <span class="folder-label">asterione</span>
       </a>
 
-      <!-- index 1 — x .55 y .15, icona Black, label U+200B, link a master.html -->
-      <a draggable="false" data-drag="true" data-index="1" class="folder-item"
-         style="top:15%;left:55.00000000000001%;-webkit-touch-callout:none" href="master.html">
+      <!-- index 1 — x .55 y .15, icona Black, label "work": i progetti.
+           Prima puntava a master.html (le opere), che resta online ma non e'
+           piu' linkata da qui. Dentro work/ la pagina e' sempre la versione
+           mobile, anche su desktop: vedi work/ANIMATION_SPEC.md. -->
+      <a draggable="false" data-drag="true" data-index="1" class="folder-item" id="work-folder"
+         style="top:15%;left:55.00000000000001%;-webkit-touch-callout:none" href="work/">
         <img draggable="false" src="assets/folder-black.png" width="64" height="64" class="pixelated">
-        <span class="folder-label">&#8203;</span>
+        <span class="folder-label">work</span>
       </a>
 
       <!-- index 2 — x .18 y .48, icona gialla, label "foto".

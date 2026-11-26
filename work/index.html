@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>work — andre</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/favicon-180.png">
+  <!-- prima del primo disegno: decide se l'intro parte, cosi' nav e colonna
+       non lampeggiano visibili per un fotogramma -->
+  <script>
+    (function (h) {
+      var played = false;
+      try { played = sessionStorage.getItem("andre-work-intro") === "1"; } catch (e) {}
+      var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      h.setAttribute("data-intro", !played && !rm ? "running" : "skip");
+      if ("onpagereveal" in window) h.setAttribute("data-vt-capable", "");
+    })(document.documentElement);
+  </script>
+  <link rel="stylesheet" href="work.css">
+</head>
+<body>
+  <div class="page">
+    <main>
+      <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">work</h1>
+      <div class="col-root" id="col"></div>
+      <noscript><p style="padding:100px 12px">Questa pagina ha bisogno di JavaScript. <a href="../">Torna alla home</a>.</p></noscript>
+    </main>
+  </div>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="progetti.js"></script>
+  <script src="work.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>
