@@ -22,15 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # La galleria e' una app Vite e va costruita. Il montaggio sta in
       # build.sh, non qui: lo stesso script lo usa anche Cloudflare Pages, che
       # e' cio' che serve davvero and-re.com. Duplicarlo li farebbe divergere.
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: foto-src/package-lock.json
 
@@ -38,15 +38,19 @@ jobs:
         run: bash build.sh
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
         with:
           enablement: true
 
+      # Nov 2026: con upload-pages-artifact@v3 + deploy-pages@v4 il deploy
+      # falliva subito ("No artifacts named github-pages were found"), dopo che
+      # GitHub ha spostato le azioni da Node 20 a Node 24. Le due vanno
+      # aggiornate insieme: sono una coppia.
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
