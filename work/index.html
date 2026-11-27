@@ -8,13 +8,22 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/favicon-180.png">
   <!-- prima del primo disegno: decide se l'intro parte, cosi' nav e colonna
-       non lampeggiano visibili per un fotogramma -->
+       non lampeggiano visibili per un fotogramma.
+       Parte a ogni ricarica e ogni volta che si entra da fuori (la cartella
+       sul desktop, un link). Non parte tornando qui da un progetto o
+       dall'indice di work: li' INDIETRO deve essere immediato.
+       (Nel riferimento invece si vede una sola volta per sessione.) -->
   <script>
     (function (h) {
-      var played = false;
-      try { played = sessionStorage.getItem("andre-work-intro") === "1"; } catch (e) {}
       var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      h.setAttribute("data-intro", !played && !rm ? "running" : "skip");
+      var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+      var reload = nav && nav.type === "reload";
+      var inside = false;
+      try {
+        var r = new URL(document.referrer);
+        inside = r.origin === location.origin && r.pathname.indexOf(location.pathname.replace(/[^/]*$/, "")) === 0;
+      } catch (e) {}
+      h.setAttribute("data-intro", !rm && (reload || !inside) ? "running" : "skip");
       if ("onpagereveal" in window) h.setAttribute("data-vt-capable", "");
     })(document.documentElement);
   </script>

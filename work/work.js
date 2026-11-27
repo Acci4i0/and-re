@@ -47,7 +47,6 @@
       '<nav class="nav fixed-full" aria-label="Principale">' +
         '<div class="nav-row nav-top">' +
           '<a class="nav-item nav-wordmark hit" href="./"' + (current === "home" ? ' aria-current="page"' : "") + ">" + navItem(esc(W.nome), 0) + "</a>" +
-          '<a class="nav-item bar-only hit" href="./"' + (current === "home" ? ' aria-current="page"' : "") + ">" + navItem("IN EVIDENZA", 1) + "</a>" +
           '<a class="nav-item hit" href="progetti.html"' + (current === "index" ? ' aria-current="page"' : "") + ">" + navItem("PROGETTI", 2) + "</a>" +
         "</div>" +
         '<div class="nav-row nav-bottom">' +

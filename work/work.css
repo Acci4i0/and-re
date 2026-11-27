@@ -108,7 +108,6 @@ html[data-scroll-lock], html[data-scroll-lock] body {
   }
   .nav-top { top: 0; padding-top: max(var(--margin), env(safe-area-inset-top)); }
   .nav-bottom { bottom: 0; padding-bottom: max(var(--margin), env(safe-area-inset-bottom)); }
-  .nav .bar-only { display: none; }
 }
 
 /* una voce = una riga che sale da dentro una maschera */

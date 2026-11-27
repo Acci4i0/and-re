@@ -15,7 +15,6 @@
 
   var W = window.WORK, Work = window.Work;
   var html = document.documentElement;
-  var INTRO_KEY = "andre-work-intro";
 
   /* ---------- markup ---------- */
 
@@ -154,9 +153,9 @@
   });
   var q = A.length;
 
-  var played = false;
-  try { played = sessionStorage.getItem(INTRO_KEY) === "1"; } catch (_) {}
-  var intro = !played && !reduced;
+  // se l'intro parte lo decide lo script in <head> di index.html, prima del
+  // primo disegno; qui si legge e basta
+  var intro = !reduced && html.getAttribute("data-intro") === "running";
 
   html.setAttribute("data-intro", intro ? "running" : "skip");
   html.setAttribute("data-intro-live", "");
@@ -288,7 +287,6 @@
         ui = true;
         root.setAttribute("data-ui", "");
         html.removeAttribute("data-intro");
-        try { sessionStorage.setItem(INTRO_KEY, "1"); } catch (_) {}
         window.dispatchEvent(new Event(Work.INTRO_DONE));
       }
       setActive(nearest);
