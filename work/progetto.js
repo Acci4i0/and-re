@@ -22,9 +22,13 @@
       content + "</" + tag + ">";
   }
 
+  /* il riquadro prende la forma della vista; per le foto si toglie il margine
+     (che resta nascosto sopra e sotto e serve solo al parallax) */
   function frame(m, level, number, label) {
-    return '<figure class="p-figure"><div class="win" data-mask-reveal="' + level + '"><div class="win-frame" data-parallax-frame>' +
-      Work.mediaTag(m, "win-media", ' loading="eager" data-image-parallax') + "</div></div>" +
+    var marg = m.video ? 0 : (m.margine || 0);
+    var ratio = m.w + " / " + (m.h / (1 + marg)).toFixed(1);
+    return '<figure class="p-figure"><div class="win" data-mask-reveal="' + level + '" style="aspect-ratio:' + ratio + '"><div class="win-frame" data-parallax-frame>' +
+      Work.mediaTag(m, "win-media", ' loading="eager" data-image-parallax style="--m:' + marg + '"') + "</div></div>" +
       '<figcaption class="p-caption"><span class="p-number">' + rise("span", 0.2, esc(number) + " /") + "</span>" +
       rise("span", 0.2, esc(label)) + "</figcaption></figure>";
   }

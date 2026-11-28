@@ -13,7 +13,7 @@
     '<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Tutti i progetti</h1>' +
     '<section class="i-section" aria-label="Progetti"><ul class="i-list">' +
       W.progetti.map(function (p, k) {
-        var second = p.media[0] || p.cover;
+        var second = p.anteprima || p.media[0] || p.cover;
         return '<li><a class="i-project" href="progetto.html?p=' + encodeURIComponent(p.slug) + '">' +
           '<div class="i-head">' + rise("p", String(k + 1).padStart(2, "0")) +
             '<div class="i-title">' + rise("span", "-", true) + rise("h2", esc(p.titolo)) + rise("span", "-", true) + rise("p", esc(p.tipo)) + "</div>" +

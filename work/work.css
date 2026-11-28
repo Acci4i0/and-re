@@ -527,6 +527,9 @@ html[data-intro]:not([data-intro-live]) .col-stage { animation: stage-unheld 0s 
 .win { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
 .win-frame { position: relative; width: 100%; height: 100%; overflow: hidden; }
 .win-media { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* foto con margine: piu' alta del riquadro e non ingrandita, quindi nessun
+   taglio ai lati; il parallax la muove solo in verticale dentro il margine */
+img.win-media[data-image-parallax] { position: absolute; left: 0; top: calc(-50% * var(--m, 0)); height: calc(100% * (1 + var(--m, 0))); scale: 1; }
 
 @media (min-width: 810px) {
   .p-info { --info-gap: 36px; padding-top: 120px; }

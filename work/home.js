@@ -24,7 +24,7 @@
   var copies = Math.max(6, Math.ceil(36 / b));
 
   function boxMarkup(p) {
-    var m = p.media[0] || p.cover;
+    var m = p.anteprima || p.media[0] || p.cover;
     if (m.video) {
       return (m.poster ? '<img class="col-media" data-poster src="' + Work.esc(m.poster) + '" alt="" loading="lazy" decoding="async" draggable="false">' : "") +
         '<video class="col-media" data-media data-src="' + Work.esc(m.video) + '" muted loop playsinline preload="none" disablepictureinpicture></video>';
