@@ -73,6 +73,7 @@
         '<svg class="footer-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor"/></svg>' +
         "</span></span></a>";
       document.body.appendChild(f);
+      footerGuard(f);
     }
 
     var btn = h.querySelector("button");
@@ -109,6 +110,28 @@
       if (e.shiftKey && (!inside || a === first)) { e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && (!inside || a === last)) { e.preventDefault(); first.focus(); }
     });
+  }
+
+  /* Il link fisso in basso a destra si dissolve quando ci passa sotto una
+     didascalia o la barra del prossimo progetto: le due scritte, entrambe in
+     basso a destra, si sovrapporrebbero (con lo schermo basso di un portatile
+     succede spesso). Osservo solo la fascia alta 48px in fondo allo schermo. */
+  function footerGuard(f) {
+    if (!("IntersectionObserver" in window)) return;
+    var under = new Set(), io = null;
+    function watch() {
+      if (io) io.disconnect();
+      under.clear();
+      f.classList.remove("footer--covered");
+      io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) under.add(e.target); else under.delete(e.target); });
+        f.classList.toggle("footer--covered", under.size > 0);
+      }, { rootMargin: "-" + Math.max(0, window.innerHeight - 48) + "px 0px 0px 0px", threshold: 0 });
+      document.querySelectorAll(".p-caption, .next-root, .i-head").forEach(function (el) { io.observe(el); });
+    }
+    requestAnimationFrame(watch);
+    var t = 0;
+    window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(watch, 150); });
   }
 
   /* ============================ scroll fluido ============================ */

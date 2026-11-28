@@ -18,7 +18,11 @@
 
   /* ---------- markup ---------- */
 
-  var P = W.progetti, b = P.length;
+  // ordine della colonna: W.ordineHome (l'intro si ferma sul primo), come nel
+  // riferimento che ha un ordine per la home diverso da quello dell'indice
+  var P = (W.ordineHome || []).map(Work.project).filter(Boolean);
+  if (P.length !== W.progetti.length) P = W.progetti;
+  var b = P.length;
   // abbastanza copie da riempire anche uno schermo alto 1600px con i tile
   // rimpiccioliti dell'intro, senza che la stessa copia serva due volte
   var copies = Math.max(6, Math.ceil(36 / b));

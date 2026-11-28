@@ -41,6 +41,10 @@ window.WORK = {
     { etichetta: "EMAIL", href: "mailto:lando.andrea04@gmail.com" },
   ],
 
+  // ordine della colonna in home: l'intro si ferma sul primo. L'indice e
+  // "prossimo progetto" seguono invece l'ordine di "progetti" qui sotto.
+  ordineHome: ["vibrolux", "fase", "estetica-skincare"],
+
   progetti: [
     {
       slug: "estetica-skincare",
